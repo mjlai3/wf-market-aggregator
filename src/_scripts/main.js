@@ -4,9 +4,26 @@
 'use strict';
 
 import $ from 'jquery';
-import Link from '../_modules/link/link';
+import _ from 'lodash';
 
 $(() => {
-  new Link(); // Activate Link modules logic
-  console.log('Welcome to Yeogurt!');
+	let itemJSON = [];
+	getItems();
+
+	function getItems(){
+		console.log('loading...');
+		$.ajax({
+			url: 'http://warframe.market/api/get_all_items_v2',
+			dataType: 'json',
+			method: 'GET'
+		}).done(function(data) {
+			setJSON(data);
+			console.log('...done');
+		})
+	}
+
+	function setJSON(data) {
+		itemJSON = data;
+		console.log(itemJSON);
+	}
 });
