@@ -6,6 +6,7 @@
 import $ from 'jquery';
 import _ from 'lodash';
 import * as firebase from 'firebase';
+import moment from 'moment';
 
 $(() => {
 	let config = {
@@ -18,7 +19,11 @@ $(() => {
 	};
 	let app = firebase.initializeApp(config);
 	let database = firebase.database();
-	
+	let currentTime = moment().format('YYYYMMMMDHHmmss');
+	let pricesJSON = [];
+
+	console.log(currentTime);
+
 	$('.update__firebase').on('click', () => {
 		getItems();
 	})
@@ -67,6 +72,8 @@ $(() => {
 		}).done((data) => {
 			let lowestPrice = (_.minBy(_.filter(data.response.sell, ['online_ingame', true]), 'price')).price || null;
 			$('.progress').prepend(`<p>${itemName}: ${lowestPrice}</p>`);
+			pricesJSON.push(`{"item_name":${itemName}},{"item_price":${lowestPrice}}`);
+			updateFirebaseData(pricesJSON, currentTime);
 		})
 	}
 });
