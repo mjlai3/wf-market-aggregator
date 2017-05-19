@@ -19,11 +19,9 @@ $(() => {
 	let app = firebase.initializeApp(config);
 	let database = firebase.database();
 	
-	let itemJSON = [];
-	let pricesJSON = [];
-	getItems();
-
-	getFirebaseData();
+	$('.update__firebase').on('click', () => {
+		getItems();
+	})
 
 	function getFirebaseData() {
 		$.ajax({
@@ -49,12 +47,10 @@ $(() => {
 			dataType: 'json',
 			method: 'GET'
 		}).done((data) => {
-			setJSON(data);
 			updateFirebaseData(data, 'items');
 			_.forEach(data, (item) => {
 				callItem(item.item_type, item.item_name);
 			})
-			console.log('done....');
 		})
 	}
 
@@ -70,7 +66,7 @@ $(() => {
 			method: 'GET'
 		}).done((data) => {
 			let lowestPrice = (_.minBy(_.filter(data.response.sell, ['online_ingame', true]), 'price')).price || null;
-			console.log(itemName + ': ' + lowestPrice);
+			$('.progress').prepend(`<p>${itemName}: ${lowestPrice}</p>`);
 		})
 	}
 });
