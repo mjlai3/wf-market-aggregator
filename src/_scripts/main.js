@@ -5,10 +5,43 @@
 
 import $ from 'jquery';
 import _ from 'lodash';
+import * as firebase from 'firebase';
 
 $(() => {
+	let config = {
+		apiKey: "AIzaSyAWmrue0-K3060LW509c4MSZy0Eb0_DJPI",
+		authDomain: "wf-market-aggregator.firebaseapp.com",
+		databaseURL: "https://wf-market-aggregator.firebaseio.com",
+		projectId: "wf-market-aggregator",
+		storageBucket: "wf-market-aggregator.appspot.com",
+		messagingSenderId: "1025734958112"
+	};
+	let app = firebase.initializeApp(config);
+	let database = firebase.database();
+	
 	let itemJSON = [];
+	let pricesJSON = [];
 	getItems();
+
+	getFirebaseData();
+
+	function getFirebaseData() {
+		$.ajax({
+			url: 'https://wf-market-aggregator.firebaseio.com/data.json',
+			dataType: 'json',
+			method: 'GET'
+		}).done((data) => {
+			console.log(data);
+		})
+	}
+
+	function updateFirebaseData(data, location) {
+		$.ajax({
+			url: `https://wf-market-aggregator.firebaseio.com/${location}.json`,
+			data: JSON.stringify(data),
+			method: 'PUT'
+		});
+	}
 
 	function getItems(){
 		$.ajax({
@@ -17,9 +50,11 @@ $(() => {
 			method: 'GET'
 		}).done((data) => {
 			setJSON(data);
+			updateFirebaseData(data, 'items');
 			_.forEach(data, (item) => {
 				callItem(item.item_type, item.item_name);
 			})
+			console.log('done....');
 		})
 	}
 
@@ -34,7 +69,8 @@ $(() => {
 			dataType: 'json',
 			method: 'GET'
 		}).done((data) => {
-			console.log(data);
+			let lowestPrice = (_.minBy(_.filter(data.response.sell, ['online_ingame', true]), 'price')).price || null;
+			console.log(itemName + ': ' + lowestPrice);
 		})
 	}
 });

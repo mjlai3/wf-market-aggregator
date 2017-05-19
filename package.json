@@ -2,6 +2,7 @@
   "name": "warframemarket-aggregator",
   "version": "0.0.1",
   "dependencies": {
+    "firebase": "^4.0.0",
     "jquery": "~2.2.0",
     "lodash": "^4.0.1",
     "normalize.css": "~3.0.3"
