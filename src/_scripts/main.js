@@ -38,7 +38,7 @@ $(() => {
 		})
 	}
 
-	function updateFirebaseData(data, location) {
+	function addFirebaseData(data, location) {
 		$.ajax({
 			url: `https://wf-market-aggregator.firebaseio.com/${location}.json`,
 			data: JSON.stringify(data),
@@ -52,7 +52,7 @@ $(() => {
 			dataType: 'json',
 			method: 'GET'
 		}).done((data) => {
-			updateFirebaseData(data, 'items');
+			addFirebaseData(data, 'items');
 			_.forEach(data, (item) => {
 				callItem(item.item_type, item.item_name);
 			})
@@ -72,8 +72,8 @@ $(() => {
 		}).done((data) => {
 			let lowestPrice = (_.minBy(_.filter(data.response.sell, ['online_ingame', true]), 'price')).price || null;
 			$('.progress').prepend(`<p>${itemName}: ${lowestPrice}</p>`);
-			pricesJSON.push(`{"item_name":${itemName}},{"item_price":${lowestPrice}}`);
-			updateFirebaseData(pricesJSON, currentTime);
+			pricesJSON.push({[itemName]:lowestPrice});
+			addFirebaseData(pricesJSON, `prices/${currentTime}`);
 		})
 	}
 });
