@@ -8,7 +8,11 @@ import _ from 'lodash';
 import * as firebase from 'firebase';
 import moment from 'moment';
 
+import Selector from '../_modules/selector/selector';
+
 $(() => {
+	new Selector();
+	
 	let config = {
 		apiKey: "AIzaSyAWmrue0-K3060LW509c4MSZy0Eb0_DJPI",
 		authDomain: "wf-market-aggregator.firebaseapp.com",
@@ -26,7 +30,7 @@ $(() => {
 
 	$('.update__firebase').on('click', () => {
 		getItems();
-	})
+	});
 
 	function getFirebaseData() {
 		$.ajax({
@@ -72,7 +76,7 @@ $(() => {
 		}).done((data) => {
 			let lowestPrice = (_.minBy(_.filter(data.response.sell, ['online_ingame', true]), 'price')).price || null;
 			$('.progress').prepend(`<p>${itemName}: ${lowestPrice}</p>`);
-			pricesJSON.push({[itemName]:lowestPrice});
+			pricesJSON.push({item_name:itemName,price:lowestPrice});
 			addFirebaseData(pricesJSON, `prices/${currentTime}`);
 		})
 	}
