@@ -1,0 +1,11 @@
+.selector {
+	background-color: #eee;
+	padding: 1em;
+	position: fixed;
+	top: 0;
+	left: 0;
+
+	&__link{
+		display: block;
+	}
+}

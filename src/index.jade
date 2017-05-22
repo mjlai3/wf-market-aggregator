@@ -1,5 +1,9 @@
 extends _layouts/base
 
+include _modules/selector/selector
+include _modules/viewer/viewer
+
 block content
 	.container
-		
+		+selector()
+		+viewer()
