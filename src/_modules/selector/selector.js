@@ -24,7 +24,6 @@ export default class Selector {
 				method: 'GET'
 			}).done((data) => {
 				var sorted = _.sortBy(data, ['price', 'item_name']);
-				console.log(sorted.reverse());
 				_.forEach(sorted, (value, key) => {
 					$('.viewer tbody').append(`<tr><td>${value.item_name}</td><td>${value.price}</td></tr>`);
 				});
@@ -39,7 +38,6 @@ export default class Selector {
 			}).done((data) => {
 				console.log(data);
 				_.forEach(data, (value, key) => {
-					console.log(key);
 					target.append(`<a href="${key}" class="selector__link">${key}</a>`);
 				});
 			})

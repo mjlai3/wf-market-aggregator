@@ -38,7 +38,7 @@ $(() => {
 			dataType: 'json',
 			method: 'GET'
 		}).done((data) => {
-			console.log(data);
+
 		})
 	}
 
@@ -65,7 +65,6 @@ $(() => {
 
 	function setJSON(data) {
 		itemJSON = data;
-		console.log(itemJSON);
 	}
 
 	function callItem(itemType, itemName) {
