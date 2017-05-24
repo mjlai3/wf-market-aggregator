@@ -1,0 +1,11 @@
+mixin viewer(spec)
+	- spec = spec || {}
+	- spec.__class = spec.__class || 'viewer'
+
+	table(class=spec.__class)&attributes(attributes)
+		thead
+			tr
+				th name
+				th price
+		tbody
+		

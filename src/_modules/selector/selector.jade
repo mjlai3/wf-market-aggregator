@@ -1,0 +1,6 @@
+mixin selector(spec)
+	- spec = spec || {}
+	- spec.__class = spec.__class || 'selector'
+
+	div(class=spec.__class)&attributes(attributes)
+

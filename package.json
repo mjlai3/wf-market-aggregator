@@ -5,6 +5,7 @@
     "firebase": "^4.0.0",
     "jquery": "~2.2.0",
     "lodash": "^4.0.1",
+    "moment": "^2.18.1",
     "normalize.css": "~3.0.3"
   },
   "devDependencies": {
@@ -64,7 +65,7 @@
     "baseUrl": "./",
     "directories": {
       "source": "src",
-      "destination": "build",
+      "destination": "docs",
       "temporary": "tmp",
       "//": "Directories relative to `source` directory",
       "modules": "_modules",

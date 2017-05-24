@@ -1,0 +1,5 @@
+mixin progress(spec)
+	- spec = spec || {}
+	- spec.__class = spec.__class || 'progress'
+
+	div(class=spec.__class)&attributes(attributes)
