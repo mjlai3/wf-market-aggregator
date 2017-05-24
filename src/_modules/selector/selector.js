@@ -24,7 +24,7 @@ export default class Selector {
 				method: 'GET'
 			}).done((data) => {
 				var sorted = _.sortBy(data, ['price', 'item_name']);
-				_.forEach(sorted, (value, key) => {
+				_.forEach(sorted.reverse(), (value, key) => {
 					$('.viewer tbody').append(`<tr><td>${value.item_name}</td><td>${value.price}</td></tr>`);
 				});
 			})

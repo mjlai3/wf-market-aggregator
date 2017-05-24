@@ -52,7 +52,7 @@ $(() => {
 
 	function getItems(){
 		$.ajax({
-			url: 'http://warframe.market/api/get_all_items_v2',
+			url: 'https://warframe.market/api/get_all_items_v2',
 			dataType: 'json',
 			method: 'GET'
 		}).done((data) => {
@@ -69,7 +69,7 @@ $(() => {
 
 	function callItem(itemType, itemName) {
 		$.ajax({
-			url: `http://warframe.market/api/get_orders/${itemType}/${itemName}`,
+			url: `https://warframe.market/api/get_orders/${itemType}/${itemName}`,
 			dataType: 'json',
 			method: 'GET'
 		}).done((data) => {
